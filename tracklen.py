@@ -21,7 +21,8 @@ def process_track(hits):
         clusters.append([mean[0], mean[1], z])
     clusters = np.array(clusters)
     deltas = clusters[1:] - clusters[:-1]
-    trklen = np.sqrt(np.sum(deltas**2))
+    print(np.sum(deltas**2, axis=1).shape)
+    trklen = np.sum(np.sqrt(np.sum(deltas**2, axis=1)))
     return charge, trklen, charge / trklen
 
 def plot_dedx(lengths, values, charge):
@@ -57,7 +58,7 @@ def main():
     lengths, values, charge = [], [], []
     for evtn, digits in digits.items():
         q, l, dEdx = process_track(digits)
-        if l < 100 and l > 10 and dEdx < 5e7:
+        if l < 500 and l > 50: # and dEdx < 1.5e6 and dEdx > 0.25e6:
             print(f'{evtn:3d}: q={q:10.0f} l={l:6.2f} dEdx={dEdx:8.0f}')
             values.append(dEdx)
             lengths.append(l)
