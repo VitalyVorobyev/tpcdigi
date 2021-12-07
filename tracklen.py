@@ -33,20 +33,20 @@ def plot_dedx(lengths, values, charge):
 
     add_grid(ax[0, 0], 'Track length (mm)', 'events', False)
     ax[0, 0].hist(lengths, bins=60, histtype='step')
-    ax[0, 0].set_xlim((0, 1.05 * np.max(lengths)))
+    # ax[0, 0].set_xlim((0, 1.05 * np.max(lengths)))
 
-    add_grid(ax[0, 1], 'Energy deposition (X / mm)', 'events', False)
+    add_grid(ax[0, 1], 'Energy deposition (keV / mm)', 'events', False)
     ax[0, 1].hist(values, bins=60, histtype='step')
     ax[0, 1].set_xlim((0, 1.05 * np.max(values)))
 
-    add_grid(ax[1, 0], 'Track length (mm)', 'Energy deposition (X / mm)', False)
+    add_grid(ax[1, 0], 'Track length (mm)', 'Energy deposition (keV / mm)', False)
     ax[1, 0].scatter(lengths, values, s=2)
-    ax[1, 0].set_xlim((0, 1.05 * np.max(lengths)))
+    # ax[1, 0].set_xlim((0, 1.05 * np.max(lengths)))
     ax[1, 0].set_ylim((0, 1.05 * np.max(values)))
 
-    add_grid(ax[1, 1], 'Track length (mm)', 'Charge', False)
-    ax[1, 1].scatter(lengths, charge, s=2)
-    ax[1, 1].set_xlim((0, 1.05 * np.max(lengths)))
+    add_grid(ax[1, 1], 'Track length (mm)', 'Deposited energy (MeV)', False)
+    ax[1, 1].scatter(lengths, charge * 1.e-3, s=2)
+    # ax[1, 1].set_xlim((0, 1.05 * np.max(lengths)))
     ax[1, 1].set_ylim((0, 1.05 * np.max(charge)))
 
     fig.tight_layout()
