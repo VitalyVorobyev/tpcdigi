@@ -9,11 +9,14 @@ def x_center_of_mass(x, ampl):
     return x @ ampl / np.sum(ampl)
 
 
+charge_to_ionization = 0.03 / 10**4  # [keV]
+
+
 def process_track(hits):
     data = np.column_stack((*digits_to_clusters(hits), hits['ampl']))
     data = data[np.argsort(data[:, 2])]
 
-    charge = np.sum(hits['ampl'])
+    charge = np.sum(hits['ampl']) * charge_to_ionization
     clusters = []
     for z in np.unique(data[:, 2]):
         digits = data[data[:, 2] == z]
@@ -21,8 +24,9 @@ def process_track(hits):
         clusters.append([mean[0], mean[1], z])
     clusters = np.array(clusters)
     deltas = clusters[1:] - clusters[:-1]
-    trklen = np.sqrt(np.sum(deltas**2))
+    trklen = np.sum(np.sqrt(np.sum(deltas**2, axis=1)))
     return charge, trklen, charge / trklen
+
 
 def plot_dedx(lengths, values, charge):
     fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(12, 12))

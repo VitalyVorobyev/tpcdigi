@@ -25,8 +25,9 @@ def add_grid(ax, xlbl, ylbl, eq):
         ax.axis('equal')
 
 
-def draw_g4xyz(g4data, hits):
+def draw_g4xyz(g4data, hits, title):
     fig, ax = plt.subplots(ncols=2, nrows=1, figsize=(16, 8), sharey=False)
+    fig.suptitle(title, fontsize=22)
 
     x, y, z = digits_to_clusters(hits)
     rho = np.hypot(x, y)
