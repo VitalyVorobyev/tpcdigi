@@ -28,6 +28,16 @@ def padid(x, y, front=True):
     return pixid
 
 
+def pixid2binxy(pixid):
+    return pixid % grid_size(), pixid // grid_size()
+
+
+def binxy2xy(binx, biny):
+    return (
+        binx * params['pixel_size'] - params['r_out'],
+        params['r_out'] - biny * params['pixel_size']
+    )
+
 def pixid2position(pixid):
     nega_z = pixid > number_of_pads()
     pixid[nega_z] -= number_of_pads()
