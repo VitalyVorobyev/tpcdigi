@@ -50,6 +50,7 @@ def draw_g4xyz(g4data, hits, title):
     draw_rect(ax[1])
 
     fig.tight_layout()
+    plt.savefig(f'plots/events/{title.replace(" ", "_")}.png')
     plt.show()
 
 
